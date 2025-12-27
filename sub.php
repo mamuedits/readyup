@@ -136,7 +136,7 @@
     <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto container-padding py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <a href="index1.html" class="flex items-center">
+                <a href="index1.php" class="flex items-center">
                     <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
@@ -144,9 +144,9 @@
             
             <nav class="hidden md:block">
                 <ul class="flex space-x-8">
-                    <li><a href="index1.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                    <li><a href="index1.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                     <li><a href="about1.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
-                    <li><a href="index1.html#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Events</a></li>
+                    <li><a href="index1.php#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Events</a></li>
                     <li><a href="contact.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
                 </ul>
             </nav>
@@ -173,10 +173,10 @@
     <!-- Mobile Menu (hidden by default) -->
     <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
         <ul class="space-y-4">
-            <li><a href="index.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
-            <li><a href="index.html#about" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
-            <li><a href="index.html#sectors" class="block text-white hover:text-blue-300 transition duration-300">Events</a></li>
-            <li><a href="index.html#contact" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
+            <li><a href="index.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+            <li><a href="index.php#about" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
+            <li><a href="index.php#sectors" class="block text-white hover:text-blue-300 transition duration-300">Events</a></li>
+            <li><a href="index.php#contact" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
         </ul>
     </div>
 
@@ -477,9 +477,9 @@
                 <div class="space-y-4">
                     <h3 class="text-lg font-semibold">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="index1.html" class="text-gray-400 hover:text-white transition duration-300 block">Home</a></li>
+                        <li><a href="index1.php" class="text-gray-400 hover:text-white transition duration-300 block">Home</a></li>
                         <li><a href="about1.html" class="text-gray-400 hover:text-white transition duration-300 block">About Us</a></li>
-                        <li><a href="index.html#sectors" class="text-gray-400 hover:text-white transition duration-300 block">Events</a></li>
+                        <li><a href="index.php#sectors" class="text-gray-400 hover:text-white transition duration-300 block">Events</a></li>
                         <li><a href="contact.html" class="text-gray-400 hover:text-white transition duration-300 block">Contact</a></li>
                     </ul>
                 </div>

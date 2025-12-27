@@ -111,7 +111,7 @@
     <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
         <div class="container mx-auto container-padding py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <a href="index1.html" class="flex items-center">
+                <a href="index1.php" class="flex items-center">
                     <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
@@ -119,7 +119,7 @@
             
             <nav class="hidden md:block">
                 <ul class="flex space-x-8">
-                    <li><a href="index1.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                    <li><a href="index1.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                     <li><a href="about1.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
                     <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Events</a></li>
                     <li><a href="contact1.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
@@ -148,7 +148,7 @@
     <!-- Mobile Menu (hidden by default) -->
     <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
         <ul class="space-y-4">
-            <li><a href="index1.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+            <li><a href="index1.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
             <li><a href="about1.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
             <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Events</a></li>
             <li><a href="contact1.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
@@ -328,7 +328,7 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="index1.html" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="index1.php" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
                         <li><a href="about1.html" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
                         <li><a href="#sectors" class="text-gray-400 hover:text-white transition duration-300">Events</a></li>
                         <li><a href="contact1.html" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
@@ -468,9 +468,9 @@
 
         // Redirect map for keywords
         const redirectMap = {
-            "home": "index1.html",
+            "home": "index1.php",
             "about": "about1.html",
-            "events": "index1.html#sectors",
+            "events": "index1.php#sectors",
             "contact": "contact1.html",
             "message": "contact1.html#message",
             "customer care":"contact1.html#message",

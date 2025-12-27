@@ -183,7 +183,7 @@ function handleLogin() {
             if ($status == 'verified') {
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password;
-                header('Location: index1.html');
+                header('Location: index1.php');
                 exit();
             } else {
                 $_SESSION['info'] = "Please verify your email - $email";
@@ -293,7 +293,7 @@ function handleNewPassword() {
 function handleLogout() {
     session_unset();
     session_destroy();
-    header('Location: index.html');
+    header('Location: index.php');
     exit();
 }
 
@@ -358,7 +358,7 @@ function renderLogin() {
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
+                    <a href="index.php" class="flex items-center">
                         <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                         <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                     </a>
@@ -366,7 +366,7 @@ function renderLogin() {
                 
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8">
-                        <li><a href="index.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                        <li><a href="index.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                         <li><a href="about.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
                         <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Sectors</a></li>
                         <li><a href="contact.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
@@ -387,7 +387,7 @@ function renderLogin() {
         <!-- Mobile Menu (hidden by default) -->
         <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
             <ul class="space-y-4">
-                <li><a href="index.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+                <li><a href="index.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
                 <li><a href="about.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
                 <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Sectors</a></li>
                 <li><a href="contact.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
@@ -522,7 +522,7 @@ function renderSignup() {
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
+                    <a href="index.php" class="flex items-center">
                         <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                         <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                     </a>
@@ -530,7 +530,7 @@ function renderSignup() {
                 
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8">
-                        <li><a href="index.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                        <li><a href="index.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                         <li><a href="about.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
                         <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Sectors</a></li>
                         <li><a href="contact.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
@@ -551,7 +551,7 @@ function renderSignup() {
         <!-- Mobile Menu (hidden by default) -->
         <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
             <ul class="space-y-4">
-                <li><a href="index.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+                <li><a href="index.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
                 <li><a href="about.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
                 <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Sectors</a></li>
                 <li><a href="contact.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
@@ -696,7 +696,7 @@ function renderVerifyOTP() {
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
+                    <a href="index.php" class="flex items-center">
                         <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                         <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                     </a>
@@ -704,7 +704,7 @@ function renderVerifyOTP() {
 
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8">
-                        <li><a href="index.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                        <li><a href="index.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                         <li><a href="about.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
                         <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Sectors</a></li>
                         <li><a href="contact.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
@@ -724,7 +724,7 @@ function renderVerifyOTP() {
 
         <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
             <ul class="space-y-4">
-                <li><a href="index.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+                <li><a href="index.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
                 <li><a href="about.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
                 <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Sectors</a></li>
                 <li><a href="contact.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
@@ -843,13 +843,13 @@ function renderForgotPassword() {
         <!-- Header -->
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                <a href="index.html" class="flex items-center">
+                <a href="index.php" class="flex items-center">
                     <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8">
-                        <li><a href="index.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                        <li><a href="index.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                         <li><a href="about.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
                         <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Sectors</a></li>
                         <li><a href="contact.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
@@ -867,7 +867,7 @@ function renderForgotPassword() {
         <!-- Mobile Menu -->
         <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
             <ul class="space-y-4">
-                <li><a href="index.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+                <li><a href="index.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
                 <li><a href="about.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
                 <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Sectors</a></li>
                 <li><a href="contact.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
@@ -980,13 +980,13 @@ function renderResetCode() {
         <!-- Header -->
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                <a href="index.html" class="flex items-center">
+                <a href="index.php" class="flex items-center">
                     <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8">
-                        <li><a href="index.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                        <li><a href="index.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                         <li><a href="about.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
                         <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Sectors</a></li>
                         <li><a href="contact.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
@@ -1004,7 +1004,7 @@ function renderResetCode() {
         <!-- Mobile Menu -->
         <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
             <ul class="space-y-4">
-                <li><a href="index.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+                <li><a href="index.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
                 <li><a href="about.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
                 <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Sectors</a></li>
                 <li><a href="contact.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
@@ -1121,13 +1121,13 @@ function renderNewPassword() {
         <!-- Header -->
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                <a href="index.html" class="flex items-center">
+                <a href="index.php" class="flex items-center">
                     <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8">
-                        <li><a href="index.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                        <li><a href="index.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                         <li><a href="about.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
                         <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Sectors</a></li>
                         <li><a href="contact.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
@@ -1145,7 +1145,7 @@ function renderNewPassword() {
         <!-- Mobile Menu -->
         <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
             <ul class="space-y-4">
-                <li><a href="index.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+                <li><a href="index.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
                 <li><a href="about.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
                 <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Sectors</a></li>
                 <li><a href="contact.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
@@ -1253,13 +1253,13 @@ function renderPasswordChanged() {
         <!-- Header -->
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-                <a href="index.html" class="flex items-center">
+                <a href="index.php" class="flex items-center">
                     <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8">
-                        <li><a href="index.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                        <li><a href="index.php" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
                         <li><a href="about.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
                         <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Sectors</a></li>
                         <li><a href="contact.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
@@ -1277,7 +1277,7 @@ function renderPasswordChanged() {
         <!-- Mobile Menu -->
         <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
             <ul class="space-y-4">
-                <li><a href="index.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+                <li><a href="index.php" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
                 <li><a href="about.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
                 <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Sectors</a></li>
                 <li><a href="contact.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>

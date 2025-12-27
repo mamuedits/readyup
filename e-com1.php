@@ -51,12 +51,12 @@
         }
         .date-badge {
             position: absolute;
-            top: -15px;
-            right: 20px;
+            top: 5px;
+            right: 5px;
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             padding: 8px 15px;
-            border-radius: 20px;
+            border-radius: 10px;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -184,262 +184,80 @@
     <!-- Events Listing Section -->
     <section class="py-16 bg-gray-50" id="events">
         <div class="container mx-auto container-padding">
+            <?php
+            $conn = new mysqli("localhost", "root", "", "eventstore");
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            
+            $today = date('Y-m-d');
+            $conn->query("DELETE FROM ecom WHERE date < '$today'");
+            $events = $conn->query("SELECT * FROM ecom WHERE date >= '$today' ORDER BY date ASC");
+            ?>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Event 1 -->
-                <div class="event-card fade-in delay-1" data-category="conference">
+                <?php 
+                $delay = 1;
+                while($row = $events->fetch_assoc()): 
+                    // Map database categories to our filter categories
+                    $filter_category = strtolower($row['category']);
+                    if (strpos($filter_category, 'summit') !== false) {
+                        $filter_category = 'summit';
+                    } elseif (strpos($filter_category, 'workshop') !== false) {
+                        $filter_category = 'workshop';
+                    } elseif (strpos($filter_category, 'expo') !== false) {
+                        $filter_category = 'expo';
+                    } else {
+                        $filter_category = 'conference'; // default
+                    }
+                ?>
+                <div class="event-card fade-in delay-<?= $delay++ % 10 ?>" data-category="<?= $filter_category ?>">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
                         <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="E-commerce Conference" class="w-full h-48 object-cover">
+                            <?php if (!empty($row['image'])): ?>
+                                <img src="<?= htmlspecialchars($row['image']) ?>" 
+                                    alt="<?= htmlspecialchars($row['name']) ?>" 
+                                    class="w-full h-48 object-cover"
+                                    loading="lazy"
+                                    onerror="this.onerror=null;this.src='https://via.placeholder.com/400x200?text=Event+Image';">
+                            <?php else: ?>
+                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                                    <span class="text-gray-500">No Image Available</span>
+                                </div>
+                            <?php endif; ?>
                             <div class="date-badge">
-                                <span>JUN 15-17</span>
+                                <span><?= date('M d, Y', strtotime($row['date'])) ?></span>
                             </div>
                         </div>
                         <div class="p-6 flex-grow">
                             <div class="flex justify-between items-start mb-2">
-                                <span class="tag">Conference</span>
-                                <span class="text-sm text-gray-500">New York, NY</span>
+                                <span class="tag <?= 
+                                    $filter_category === 'hackathon' ? 'bg-purple-100 text-purple-800' : 
+                                    ($filter_category === 'workshop' ? 'bg-green-100 text-green-800' : 
+                                    ($filter_category === 'webinar' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'))
+                                ?>">
+                                    <?= htmlspecialchars($row['category']) ?>
+                                </span>
+                                <span class="text-sm text-gray-500"><?= htmlspecialchars($row['place']) ?></span>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Global E-commerce Conference 2023</h3>
-                            <p class="text-gray-600 mb-4">Join leading retail innovators for three days of cutting-edge technology and digital commerce transformation.</p>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3"><?= htmlspecialchars($row['name']) ?></h3>
+                            <p class="text-gray-600 mb-4"><?= htmlspecialchars($row['description']) ?></p>
                             <div class="mt-auto">
-                                <a href="https://globalfintechconference.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
+                                <a href="<?= htmlspecialchars($row['link']) ?>" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
                                     Learn More <i class="fas fa-arrow-right ml-1"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Event 2 -->
-                <div class="event-card fade-in delay-2" data-category="summit">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Retail Summit" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>JUL 8-10</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bg-purple-100 text-purple-800">Summit</span>
-                                <span class="text-sm text-gray-500">Singapore</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Asia Retail Innovation Summit</h3>
-                            <p class="text-gray-600 mb-4">3-day event exploring the future of retail technology and omnichannel strategies in Asian markets.</p>
-                            <div class="mt-auto">
-                                <a href="https://asiablockchainsummit.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
+                <?php endwhile; ?>
+                
+                <?php if ($events->num_rows === 0): ?>
+                    <div class="col-span-full text-center py-12">
+                        <h3 class="text-2xl font-bold text-gray-700">No upcoming events found</h3>
+                        <p class="text-gray-500 mt-2">Check back later for new events!</p>
                     </div>
-                </div>
-
-                <!-- Event 3 -->
-                <div class="event-card fade-in delay-3" data-category="workshop">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Marketing Workshop" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>JUN 22</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bg-green-100 text-green-800">Workshop</span>
-                                <span class="text-sm text-gray-500">London, UK</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Digital Marketing for E-commerce Workshop</h3>
-                            <p class="text-gray-600 mb-4">Hands-on workshop covering conversion optimization, social media strategies, and customer acquisition.</p>
-                            <div class="mt-auto">
-                                <a href="https://algorithmictradingworkshop.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 4 -->
-                <div class="event-card fade-in delay-4" data-category="conference">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Retail Conference" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>AUG 12-14</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag">Conference</span>
-                                <span class="text-sm text-gray-500">Frankfurt, Germany</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Future of Retail Conference</h3>
-                            <p class="text-gray-600 mb-4">Exploring digital transformation, customer experience, and retail technology strategies.</p>
-                            <div class="mt-auto">
-                                <a href="https://futureofbanking.eu" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 5 -->
-                <div class="event-card fade-in delay-5" data-category="expo">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="E-commerce Expo" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>JUN 30-JUL 2</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bg-red-100 text-red-800">Expo</span>
-                                <span class="text-sm text-gray-500">San Francisco, CA</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">E-commerce Technology Expo</h3>
-                            <p class="text-gray-600 mb-4">Showcasing the latest innovations in online retail, payment systems, and logistics technologies.</p>
-                            <div class="mt-auto">
-                                <a href="https://digitalpaymentsexpo.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 6 -->
-                <div class="event-card fade-in delay-6" data-category="summit">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Supply Chain Summit" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>SEP 5-7</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bg-purple-100 text-purple-800">Summit</span>
-                                <span class="text-sm text-gray-500">Zurich, Switzerland</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Global Supply Chain & Logistics Summit</h3>
-                            <p class="text-gray-600 mb-4">3-day event for retail and e-commerce professionals on supply chain optimization and logistics solutions.</p>
-                            <div class="mt-auto">
-                                <a href="https://wealthmanagementsummit.ch" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 7 -->
-                <div class="event-card fade-in delay-7" data-category="workshop">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="SEO Workshop" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>JUL 18-19</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bg-green-100 text-green-800">Workshop</span>
-                                <span class="text-sm text-gray-500">Chicago, IL</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">E-commerce SEO & Content Workshop</h3>
-                            <p class="text-gray-600 mb-4">Two-day intensive on search engine optimization and content strategies for online retailers.</p>
-                            <div class="mt-auto">
-                                <a href="https://riskmanagementworkshop.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 8 -->
-                <div class="event-card fade-in delay-8" data-category="expo">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Retail Tech Expo" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>AUG 21-23</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bg-red-100 text-red-800">Expo</span>
-                                <span class="text-sm text-gray-500">London, UK</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Retail Technology Europe Expo</h3>
-                            <p class="text-gray-600 mb-4">Showcasing the latest technologies transforming the retail industry across Europe.</p>
-                            <div class="mt-auto">
-                                <a href="https://insurtechexpo.eu" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 9 -->
-                <div class="event-card fade-in delay-9" data-category="conference">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Marketplace Conference" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>OCT 10-12</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag">Conference</span>
-                                <span class="text-sm text-gray-500">Hong Kong</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Marketplace & D2C Conference</h3>
-                            <p class="text-gray-600 mb-4">Leading experts share insights on marketplace strategies and direct-to-consumer business models.</p>
-                            <div class="mt-auto">
-                                <a href="https://asiainvestmentconference.hk" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 10 -->
-                <div class="event-card fade-in delay-10" data-category="workshop">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Analytics Workshop" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>SEP 22</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bg-green-100 text-green-800">Workshop</span>
-                                <span class="text-sm text-gray-500">Dubai, UAE</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Retail Analytics & AI Workshop</h3>
-                            <p class="text-gray-600 mb-4">One-day training on data analytics and artificial intelligence applications for retail businesses.</p>
-                            <div class="mt-auto">
-                                <a href="https://cryptoregworkshop.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-12">
-                <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-8 rounded-full border border-gray-300 shadow-sm transition duration-300 inline-flex items-center">
-                    Load More Events <i class="fas fa-sync-alt ml-2 animate-spin hidden group-hover:inline-block"></i>
-                </button>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -453,8 +271,8 @@
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                
-                <a href="contact1.html" class="bg-transparent hover:bg-white/10 text-white font-semibold py-3 px-8 rounded-full border border-white transition duration-300">
-                    Contact Our Team
+                <a href="addevent.html" class="bg-transparent hover:bg-white/10 text-white font-semibold py-3 px-8 rounded-full border border-white transition duration-300">
+                    Promote Your Event
                 </a>
             </div>
         </div>
@@ -506,13 +324,13 @@
                         <h3 class="text-lg font-semibold">Events</h3>
                         <div class="grid grid-cols-2 gap-x-4 gap-y-2">
                             <a href="tech1.html" class="text-gray-400 hover:text-white transition duration-300 block">Tech & Innovation</a>
-                            <a href="e-com1.html" class="text-gray-400 hover:text-white transition duration-300 block">E-commerce</a>
-                            <a href="envi1.html" class="text-gray-400 hover:text-white transition duration-300 block">Sustainability</a>
-                            <a href="finance1.html" class="text-gray-400 hover:text-white transition duration-300 block">FinTech</a>
-                            <a href="food1.html" class="text-gray-400 hover:text-white transition duration-300 block">Food & Beverage</a>
-                            <a href="social1.html" class="text-gray-400 hover:text-white transition duration-300 block">Social Impact</a>
-                            <a href="health1.html" class="text-gray-400 hover:text-white transition duration-300 block">Health & Wellness</a>
-                            <a href="media1.html" class="text-gray-400 hover:text-white transition duration-300 block">Entertainment</a>
+                            <a href="e-com1.php" class="text-gray-400 hover:text-white transition duration-300 block">E-commerce</a>
+                            <a href="envi1.php" class="text-gray-400 hover:text-white transition duration-300 block">Sustainability</a>
+                            <a href="finance1.php" class="text-gray-400 hover:text-white transition duration-300 block">FinTech</a>
+                            <a href="food1.php" class="text-gray-400 hover:text-white transition duration-300 block">Food & Beverage</a>
+                            <a href="social1.php" class="text-gray-400 hover:text-white transition duration-300 block">Social Impact</a>
+                            <a href="health1.php" class="text-gray-400 hover:text-white transition duration-300 block">Health & Wellness</a>
+                            <a href="media1.php" class="text-gray-400 hover:text-white transition duration-300 block">Entertainment</a>
                         </div>
                     </div>
                     
@@ -628,6 +446,68 @@
             // Check on scroll
             window.addEventListener('scroll', animateOnScroll);
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector('input[placeholder*="Search"]');
+        const searchButton = searchInput?.nextElementSibling;
+
+        // Redirect map for keywords
+        const redirectMap = {
+            "home": "index1.html",
+            "about": "about1.html",
+            "events": "index1.html#sectors",
+            "contact": "contact1.html",
+            "message": "contact1.html#message",
+            "customer care":"contact1.html#message",
+            "customer": "contact1.html#message",
+            "tech": "tech1.html",
+            "innovation": "tech1.html",
+            "sustainability": "envi1.php",
+            "sustainable": "envi1.php",
+            "sustainable development": "envi1.php",
+            "environment": "envi1.php",
+            "food": "food1.php",
+            "beverage": "food1.php",
+            "health": "health1.php",
+            "wellness": "health1.php",
+            "fintech": "finance1.php",
+            "finance": "finance1.php",
+            "financial": "finance1.php",
+            "social impact": "social1.php",
+            "social": "social1.php",
+            "impact": "social1.php",
+            "e-commerce": "e-com1.php",
+            "ecom": "e-com1.php",
+            "retail": "e-com1.php",
+            "entertainment": "media1.php",
+            "media": "media1.php"
+        };
+
+        function redirectBasedOnSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            for (const keyword in redirectMap) {
+                if (query.includes(keyword)) {
+                    window.location.href = redirectMap[keyword];
+                    return;
+                }
+            }
+            alert("No matching page found for your search.");
+        }
+
+        // Handle Enter key
+        searchInput.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                redirectBasedOnSearch();
+            }
+        });
+
+        // Handle search button click
+        searchButton?.addEventListener("click", function (event) {
+            event.preventDefault();
+            redirectBasedOnSearch();
+        });
+    });
     </script>
 </body>
 </html>

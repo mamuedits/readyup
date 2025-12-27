@@ -51,12 +51,12 @@
         }
         .date-badge {
             position: absolute;
-            top: -15px;
-            right: 20px;
+            top: 5px;
+            right: 5px;
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             padding: 8px 15px;
-            border-radius: 20px;
+            border-radius: 10px;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -183,7 +183,7 @@
                     <button class="filter-btn bg-green-100 text-green-800 px-4 py-2 rounded-full font-medium transition-all" data-filter="festival">
                         Food Festivals
                     </button>
-                    <button class="filter-btn bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium transition-all" data-filter="tasting">
+                    <button class="filter-btn bg-purple-100 text-purple-800 px-4 py-2 rounded-full font-medium transition-all" data-filter="tasting">
                         Tastings
                     </button>
                     <button class="filter-btn bg-orange-100 text-orange-800 px-4 py-2 rounded-full font-medium transition-all" data-filter="workshop">
@@ -200,262 +200,80 @@
     <!-- Events Listing Section -->
     <section class="py-16 bg-gray-50" id="events">
         <div class="container mx-auto container-padding">
+            <?php
+            $conn = new mysqli("localhost", "root", "", "eventstore");
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            
+            $today = date('Y-m-d');
+            $conn->query("DELETE FROM food WHERE date < '$today'");
+            $events = $conn->query("SELECT * FROM food WHERE date >= '$today' ORDER BY date ASC");
+            ?>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Event 1 -->
-                <div class="event-card fade-in delay-1" data-category="festival">
+                <?php 
+                $delay = 1;
+                while($row = $events->fetch_assoc()): 
+                    // Map database categories to our filter categories
+                    $filter_category = strtolower($row['category']);
+                    if (strpos($filter_category, 'tasting') !== false) {
+                        $filter_category = 'tasting';
+                    } elseif (strpos($filter_category, 'workshop') !== false) {
+                        $filter_category = 'workshop';
+                    } elseif (strpos($filter_category, 'expo') !== false) {
+                        $filter_category = 'expo';
+                    } else {
+                        $filter_category = 'festival'; // default
+                    }
+                ?>
+                <div class="event-card fade-in delay-<?= $delay++ % 10 ?>" data-category="<?= $filter_category ?>">
                     <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
                         <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Food Festival" class="w-full h-48 object-cover">
+                            <?php if (!empty($row['image'])): ?>
+                                <img src="<?= htmlspecialchars($row['image']) ?>" 
+                                    alt="<?= htmlspecialchars($row['name']) ?>" 
+                                    class="w-full h-48 object-cover"
+                                    loading="lazy"
+                                    onerror="this.onerror=null;this.src='https://via.placeholder.com/400x200?text=Event+Image';">
+                            <?php else: ?>
+                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                                    <span class="text-gray-500">No Image Available</span>
+                                </div>
+                            <?php endif; ?>
                             <div class="date-badge">
-                                <span>JUN 10-12</span>
+                                <span><?= date('M d, Y', strtotime($row['date'])) ?></span>
                             </div>
                         </div>
                         <div class="p-6 flex-grow">
                             <div class="flex justify-between items-start mb-2">
-                                <span class="tag festival-tag">Food Festival</span>
-                                <span class="text-sm text-gray-500">New York, NY</span>
+                                <span class="tag <?= 
+                                    $filter_category === 'hackathon' ? 'bg-purple-100 text-purple-800' : 
+                                    ($filter_category === 'workshop' ? 'bg-green-100 text-green-800' : 
+                                    ($filter_category === 'webinar' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'))
+                                ?>">
+                                    <?= htmlspecialchars($row['category']) ?>
+                                </span>
+                                <span class="text-sm text-gray-500"><?= htmlspecialchars($row['place']) ?></span>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Taste of NYC 2023</h3>
-                            <p class="text-gray-600 mb-4">Experience the best of New York's culinary scene with 100+ vendors, celebrity chefs, and live cooking demos.</p>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3"><?= htmlspecialchars($row['name']) ?></h3>
+                            <p class="text-gray-600 mb-4"><?= htmlspecialchars($row['description']) ?></p>
                             <div class="mt-auto">
-                                <a href="https://tasteofnyc.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
+                                <a href="<?= htmlspecialchars($row['link']) ?>" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
                                     Learn More <i class="fas fa-arrow-right ml-1"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Event 2 -->
-                <div class="event-card fade-in delay-2" data-category="tasting">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Wine Tasting" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>JUL 15</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bev-tag">Wine Tasting</span>
-                                <span class="text-sm text-gray-500">Napa Valley, CA</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Napa Valley Wine Experience</h3>
-                            <p class="text-gray-600 mb-4">Exclusive tasting event featuring rare vintages from Napa's top wineries with expert sommeliers.</p>
-                            <div class="mt-auto">
-                                <a href="https://napawineexperience.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
+                <?php endwhile; ?>
+                
+                <?php if ($events->num_rows === 0): ?>
+                    <div class="col-span-full text-center py-12">
+                        <h3 class="text-2xl font-bold text-gray-700">No upcoming events found</h3>
+                        <p class="text-gray-500 mt-2">Check back later for new events!</p>
                     </div>
-                </div>
-
-                <!-- Event 3 -->
-                <div class="event-card fade-in delay-3" data-category="workshop">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cooking Class" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>JUN 22</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag workshop-tag">Cooking Workshop</span>
-                                <span class="text-sm text-gray-500">Chicago, IL</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Artisan Pasta Making</h3>
-                            <p class="text-gray-600 mb-4">Hands-on workshop with Chef Marco Bianchi learning traditional Italian pasta techniques.</p>
-                            <div class="mt-auto">
-                                <a href="https://pastaworkshopchicago.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 4 -->
-                <div class="event-card fade-in delay-4" data-category="expo">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Food Expo" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>AUG 5-7</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag">Food Expo</span>
-                                <span class="text-sm text-gray-500">Las Vegas, NV</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">National Restaurant Association Show</h3>
-                            <p class="text-gray-600 mb-4">The largest annual trade show for the restaurant and foodservice industry in North America.</p>
-                            <div class="mt-auto">
-                                <a href="https://nationalrestaurantshow.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 5 -->
-                <div class="event-card fade-in delay-5" data-category="tasting">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1530046339911-e4c3b636be0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Whiskey Tasting" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>SEP 9</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bev-tag">Whiskey Tasting</span>
-                                <span class="text-sm text-gray-500">Louisville, KY</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Bourbon & Beyond Festival</h3>
-                            <p class="text-gray-600 mb-4">Celebrate Kentucky's bourbon heritage with tastings, masterclasses, and live music.</p>
-                            <div class="mt-auto">
-                                <a href="https://bourbonandbeyond.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 6 -->
-                <div class="event-card fade-in delay-6" data-category="festival">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Street Food" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>JUL 22-24</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag festival-tag">Street Food Festival</span>
-                                <span class="text-sm text-gray-500">Portland, OR</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">PDX Street Food Fest</h3>
-                            <p class="text-gray-600 mb-4">Three days celebrating Portland's legendary food cart scene with 150+ vendors and live music.</p>
-                            <div class="mt-auto">
-                                <a href="https://pdxstreetfoodfest.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 7 -->
-                <div class="event-card fade-in delay-7" data-category="workshop">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Baking Class" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>AUG 14</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag workshop-tag">Baking Workshop</span>
-                                <span class="text-sm text-gray-500">Paris, France</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">French Patisserie Masterclass</h3>
-                            <p class="text-gray-600 mb-4">Learn the secrets of perfect croissants and macarons from a Michelin-star pastry chef.</p>
-                            <div class="mt-auto">
-                                <a href="https://frenchpatisseriemasterclass.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 8 -->
-                <div class="event-card fade-in delay-8" data-category="tasting">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Craft Beer" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>SEP 16-18</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag bev-tag">Beer Festival</span>
-                                <span class="text-sm text-gray-500">Denver, CO</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Great American Beer Festival</h3>
-                            <p class="text-gray-600 mb-4">The premier U.S. beer festival featuring 2,000+ craft beers from 500+ breweries.</p>
-                            <div class="mt-auto">
-                                <a href="https://greatamericanbeerfestival.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 9 -->
-                <div class="event-card fade-in delay-9" data-category="expo">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1510627498534-cf7e9002facc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Coffee Expo" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>OCT 5-7</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag">Coffee Expo</span>
-                                <span class="text-sm text-gray-500">Seattle, WA</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Seattle Coffee Festival</h3>
-                            <p class="text-gray-600 mb-4">Celebrating specialty coffee with tastings, brewing competitions, and barista workshops.</p>
-                            <div class="mt-auto">
-                                <a href="https://seattlecoffeefestival.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Event 10 -->
-                <div class="event-card fade-in delay-10" data-category="workshop">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col event-card-inner">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Mixology Class" class="w-full h-48 object-cover">
-                            <div class="date-badge">
-                                <span>NOV 12</span>
-                            </div>
-                        </div>
-                        <div class="p-6 flex-grow">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="tag workshop-tag">Mixology Workshop</span>
-                                <span class="text-sm text-gray-500">New Orleans, LA</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">Cocktail Crafting Masterclass</h3>
-                            <p class="text-gray-600 mb-4">Learn to craft classic and innovative cocktails from New Orleans' top mixologists.</p>
-                            <div class="mt-auto">
-                                <a href="https://nolarevival.com" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-full transition duration-300">
-                                    Learn More <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-12">
-                <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-8 rounded-full border border-gray-300 shadow-sm transition duration-300 inline-flex items-center">
-                    Load More Events <i class="fas fa-sync-alt ml-2 animate-spin hidden group-hover:inline-block"></i>
-                </button>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -469,8 +287,8 @@
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 
-                <a href="contact1.html" class="bg-transparent hover:bg-white/10 text-white font-semibold py-3 px-8 rounded-full border border-white transition duration-300">
-                    Contact Our Team
+                <a href="addevent.html" class="bg-transparent hover:bg-white/10 text-white font-semibold py-3 px-8 rounded-full border border-white transition duration-300">
+                    Promote Your Event
                 </a>
             </div>
         </div>
@@ -521,13 +339,13 @@
                     <h3 class="text-lg font-semibold">Events</h3>
                     <div class="grid grid-cols-2 gap-x-4 gap-y-2">
                         <a href="tech1.html" class="text-gray-400 hover:text-white transition duration-300 block">Tech & Innovation</a>
-                        <a href="e-com1.html" class="text-gray-400 hover:text-white transition duration-300 block">E-commerce</a>
-                        <a href="envi1.html" class="text-gray-400 hover:text-white transition duration-300 block">Sustainability</a>
-                        <a href="finance1.html" class="text-gray-400 hover:text-white transition duration-300 block">FinTech</a>
-                        <a href="food1.html" class="text-gray-400 hover:text-white transition duration-300 block">Food & Beverage</a>
-                        <a href="social1.html" class="text-gray-400 hover:text-white transition duration-300 block">Social Impact</a>
-                        <a href="health1.html" class="text-gray-400 hover:text-white transition duration-300 block">Health & Wellness</a>
-                        <a href="media1.html" class="text-gray-400 hover:text-white transition duration-300 block">Entertainment</a>
+                        <a href="e-com1.php" class="text-gray-400 hover:text-white transition duration-300 block">E-commerce</a>
+                        <a href="envi1.php" class="text-gray-400 hover:text-white transition duration-300 block">Sustainability</a>
+                        <a href="finance1.php" class="text-gray-400 hover:text-white transition duration-300 block">FinTech</a>
+                        <a href="food1.php" class="text-gray-400 hover:text-white transition duration-300 block">Food & Beverage</a>
+                        <a href="social1.php" class="text-gray-400 hover:text-white transition duration-300 block">Social Impact</a>
+                        <a href="health1.php" class="text-gray-400 hover:text-white transition duration-300 block">Health & Wellness</a>
+                        <a href="media1.php" class="text-gray-400 hover:text-white transition duration-300 block">Entertainment</a>
                     </div>
                 </div>
                 
@@ -642,6 +460,68 @@
             // Check on scroll
             window.addEventListener('scroll', animateOnScroll);
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector('input[placeholder*="Search"]');
+        const searchButton = searchInput?.nextElementSibling;
+
+        // Redirect map for keywords
+        const redirectMap = {
+            "home": "index1.html",
+            "about": "about1.html",
+            "events": "index1.html#sectors",
+            "contact": "contact1.html",
+            "message": "contact1.html#message",
+            "customer care":"contact1.html#message",
+            "customer": "contact1.html#message",
+            "tech": "tech1.html",
+            "innovation": "tech1.html",
+            "sustainability": "envi1.php",
+            "sustainable": "envi1.php",
+            "sustainable development": "envi1.php",
+            "environment": "envi1.php",
+            "food": "food1.php",
+            "beverage": "food1.php",
+            "health": "health1.php",
+            "wellness": "health1.php",
+            "fintech": "finance1.php",
+            "finance": "finance1.php",
+            "financial": "finance1.php",
+            "social impact": "social1.php",
+            "social": "social1.php",
+            "impact": "social1.php",
+            "e-commerce": "e-com1.php",
+            "ecom": "e-com1.php",
+            "retail": "e-com1.php",
+            "entertainment": "media1.php",
+            "media": "media1.php"
+        };
+
+        function redirectBasedOnSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            for (const keyword in redirectMap) {
+                if (query.includes(keyword)) {
+                    window.location.href = redirectMap[keyword];
+                    return;
+                }
+            }
+            alert("No matching page found for your search.");
+        }
+
+        // Handle Enter key
+        searchInput.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                redirectBasedOnSearch();
+            }
+        });
+
+        // Handle search button click
+        searchButton?.addEventListener("click", function (event) {
+            event.preventDefault();
+            redirectBasedOnSearch();
+        });
+    });
     </script>
 </body>
 </html>

@@ -100,8 +100,8 @@
                 Explore breakthrough technologies, market trends, and intelligent insights.
             </p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="sub.php" class="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-full transition duration-300">
-                    Get Started Now
+                <a href="sub.php" class="bg-blue-600 text-white hover:bg-blue-700 font-semibold py-3 px-8 rounded-full transition duration-300">
+                    Get Started for Free
                 </a>
             </div>
             <div class="mt-12 animate-bounce">
@@ -342,6 +342,68 @@
                 });
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector('input[placeholder*="Search"]');
+        const searchButton = searchInput?.nextElementSibling;
+
+        // Redirect map for keywords
+        const redirectMap = {
+            "home": "index1.html",
+            "about": "about1.html",
+            "events": "index1.html#sectors",
+            "contact": "contact1.html",
+            "message": "contact1.html#message",
+            "customer care":"contact1.html#message",
+            "customer": "contact1.html#message",
+            "tech": "tech1.html",
+            "innovation": "tech1.html",
+            "sustainability": "envi1.php",
+            "sustainable": "envi1.php",
+            "sustainable development": "envi1.php",
+            "environment": "envi1.php",
+            "food": "food1.php",
+            "beverage": "food1.php",
+            "health": "health1.php",
+            "wellness": "health1.php",
+            "fintech": "finance1.php",
+            "finance": "finance1.php",
+            "financial": "finance1.php",
+            "social impact": "social1.php",
+            "social": "social1.php",
+            "impact": "social1.php",
+            "e-commerce": "e-com1.php",
+            "ecom": "e-com1.php",
+            "retail": "e-com1.php",
+            "entertainment": "media1.php",
+            "media": "media1.php"
+        };
+
+        function redirectBasedOnSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            for (const keyword in redirectMap) {
+                if (query.includes(keyword)) {
+                    window.location.href = redirectMap[keyword];
+                    return;
+                }
+            }
+            alert("No matching page found for your search.");
+        }
+
+        // Handle Enter key
+        searchInput.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                redirectBasedOnSearch();
+            }
+        });
+
+        // Handle search button click
+        searchButton?.addEventListener("click", function (event) {
+            event.preventDefault();
+            redirectBasedOnSearch();
+        });
+    });
     </script>
 </body>
 </html>

@@ -66,6 +66,16 @@ function handleSignup() {
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $cpassword = mysqli_real_escape_string($con, $_POST['cpassword']);
 
+    // Check if it starts with a letter or underscore
+    if (!preg_match('/^[A-Za-z_]/', $name)) {
+        $errors['name']= "Name must start with a letter or underscore.";
+    }
+
+    // Check if it contains at least one letter
+    if (!preg_match('/[A-Za-z]/', $name)) {
+        $errors['name'] = "Name must contain at least one alphabet.";
+    }
+
     // Email format validation
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Invalid email format!";

@@ -152,7 +152,7 @@
             </nav>
             
             <div class="flex items-center space-x-4">
-                <a href="logout.php" class="bg-[#276EF1] hover:bg-[#1F5A89] text-white font-semibold py-2 px-6 rounded-full transition duration-300 flex items-center">
+                <a href="logout.php" class="bg-blue-600 hover:bg-[#1F5A89] text-white font-semibold py-2 px-6 rounded-full transition duration-300 flex items-center">
                     <i class="fas fa-sign-in-alt mr-2"></i> Logout
                 </a>
                 

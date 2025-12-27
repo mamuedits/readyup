@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadyUp - Add Event</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .form-container:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .input-field:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        .category-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .category-card.selected {
+            border: 2px solid #3b82f6;
+            background-color: #f0f7ff;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-gray-50">
+    <!-- Header -->
+    <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index1.html" class="flex items-center">
+                    <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                    <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
+                </a>
+            </div>
+            
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="index1.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Home</a></li>
+                    <li><a href="about1.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">About</a></li>
+                    <li><a href="#sectors" class="text-white hover:text-blue-300 transition duration-300 font-medium">Events</a></li>
+                    <li><a href="contact1.html" class="text-white hover:text-blue-300 transition duration-300 font-medium">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <a href="logout.php" class="bg-[#276EF1] hover:bg-[#1F5A89] text-white font-semibold py-2 px-6 rounded-full transition duration-300 flex items-center">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Logout
+                </a>
+                
+                <button class="md:hidden text-white text-2xl" id="mobileMenuButton">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="md:hidden hidden bg-[#121823] py-4 px-4" id="mobileMenu">
+        <ul class="space-y-4">
+            <li><a href="index1.html" class="block text-white hover:text-blue-300 transition duration-300">Home</a></li>
+            <li><a href="about1.html" class="block text-white hover:text-blue-300 transition duration-300">About</a></li>
+            <li><a href="#sectors" class="block text-white hover:text-blue-300 transition duration-300">Events</a></li>
+            <li><a href="contact1.html" class="block text-white hover:text-blue-300 transition duration-300">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="form-container p-8 md:p-10">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2 text-center">Add New Event</h1>
+                    <p class="text-gray-600 mb-8 text-center">Select your event category to proceed</p>
+                    
+                    <!-- Category Selection -->
+                    <div id="categorySelection" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <!-- Tech & Innovation -->
+                            <div class="category-card p-4 border rounded-lg text-center" data-category="tech">
+                                <div class="bg-blue-100 p-3 rounded-full inline-block mb-3">
+                                    <i class="fas fa-microchip text-blue-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-800">Tech & Innovation</h3>
+                            </div>
+                            
+                            <!-- Sustainability -->
+                            <div class="category-card p-4 border rounded-lg text-center" data-category="sustainability">
+                                <div class="bg-green-100 p-3 rounded-full inline-block mb-3">
+                                    <i class="fas fa-leaf text-green-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-800">Sustainability</h3>
+                            </div>
+                            
+                            <!-- Food & Beverage -->
+                            <div class="category-card p-4 border rounded-lg text-center" data-category="food">
+                                <div class="bg-red-100 p-3 rounded-full inline-block mb-3">
+                                    <i class="fas fa-utensils text-red-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-800">Food & Beverage</h3>
+                            </div>
+                            
+                            <!-- Health & Wellness -->
+                            <div class="category-card p-4 border rounded-lg text-center" data-category="health">
+                                <div class="bg-purple-100 p-3 rounded-full inline-block mb-3">
+                                    <i class="fas fa-heartbeat text-purple-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-800">Health & Wellness</h3>
+                            </div>
+                            
+                            <!-- Finance & FinTech -->
+                            <div class="category-card p-4 border rounded-lg text-center" data-category="finance">
+                                <div class="bg-yellow-100 p-3 rounded-full inline-block mb-3">
+                                    <i class="fas fa-chart-line text-yellow-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-800">Finance & FinTech</h3>
+                            </div>
+                            
+                            <!-- Social Impact -->
+                            <div class="category-card p-4 border rounded-lg text-center" data-category="social">
+                                <div class="bg-indigo-100 p-3 rounded-full inline-block mb-3">
+                                    <i class="fas fa-hands-helping text-indigo-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-800">Social Impact</h3>
+                            </div>
+                            
+                            <!-- E-commerce & Retail -->
+                            <div class="category-card p-4 border rounded-lg text-center" data-category="ecom">
+                                <div class="bg-pink-100 p-3 rounded-full inline-block mb-3">
+                                    <i class="fas fa-shopping-cart text-pink-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-800">E-commerce & Retail</h3>
+                            </div>
+                            
+                            <!-- Entertainment & Media -->
+                            <div class="category-card p-4 border rounded-lg text-center" data-category="media">
+                                <div class="bg-orange-100 p-3 rounded-full inline-block mb-3">
+                                    <i class="fas fa-film text-orange-600 text-2xl"></i>
+                                </div>
+                                <h3 class="font-semibold text-gray-800">Entertainment & Media</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tech & Innovation Form (Hidden by default) -->
+                    <div id="techForm" class="hidden space-y-6">
+                        <form action="storetech.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            <input type="hidden" name="main_category" value="Tech & Innovation">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                                <input type="text" id="name" name="name" placeholder="Google I/O 2025" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category</label>
+                                <select id="category" name="category" required 
+                                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                    <option value="" disabled selected>Select a sub-category</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Hackathon">Hackathon</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Webinar">Webinar</option>
+                                </select>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                    <input type="date" id="date" name="date" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                                
+                                <div>
+                                    <label for="place" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <input type="text" id="place" name="place" placeholder="San Francisco, CA" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="description" name="description" maxlength="150" 
+                                          placeholder="Brief description (10-20 words)" required 
+                                          class="input-field w-full px-4 py-3 rounded-lg focus:outline-none h-24"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Max 150 characters</p>
+                            </div>
+                            
+                            <div>
+                                <label for="link" class="block text-sm font-medium text-gray-700 mb-1">Official Link</label>
+                                <input type="url" id="link" name="link" placeholder="https://example.com" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="image" class="block text-sm font-medium text-gray-700 mb-1">Event Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="image" class="flex flex-col w-full h-32 border-2 border-dashed hover:border-gray-400 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-300">
+                                        <div class="flex flex-col items-center justify-center pt-7">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+                                        </div>
+                                        <input id="image" name="image" type="file" accept="image/*" required class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button type="button" onclick="backToCategories()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="submit" class="submit-btn text-white py-3 px-6 rounded-lg font-semibold">
+                                    Submit Event <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Sustainability Form (Hidden by default) -->
+                    <div id="sustainabilityForm" class="hidden space-y-6">
+                        <form action="storeenvi.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            <input type="hidden" name="main_category" value="Sustainability">
+                            <div>
+                                <label for="sustainability_name" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                                <input type="text" id="sustainability_name" name="name" placeholder="Global Climate Summit 2025" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="sustainability_category" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category</label>
+                                <select id="sustainability_category" name="category" required 
+                                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                    <option value="" disabled selected>Select a sub-category</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Summit">Summit</option>
+                                    <option value="Festival">Festival</option>
+                                    <option value="Expo">Expo</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Same other fields as tech form -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="sustainability_date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                    <input type="date" id="sustainability_date" name="date" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                                
+                                <div>
+                                    <label for="sustainability_place" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <input type="text" id="sustainability_place" name="place" placeholder="New York, NY" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="sustainability_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="sustainability_description" name="description" maxlength="150" 
+                                          placeholder="Brief description (10-20 words)" required 
+                                          class="input-field w-full px-4 py-3 rounded-lg focus:outline-none h-24"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Max 150 characters</p>
+                            </div>
+                            
+                            <div>
+                                <label for="sustainability_link" class="block text-sm font-medium text-gray-700 mb-1">Official Link</label>
+                                <input type="url" id="sustainability_link" name="link" placeholder="https://example.com" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="sustainability_image" class="block text-sm font-medium text-gray-700 mb-1">Event Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="sustainability_image" class="flex flex-col w-full h-32 border-2 border-dashed hover:border-gray-400 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-300">
+                                        <div class="flex flex-col items-center justify-center pt-7">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+                                        </div>
+                                        <input id="sustainability_image" name="image" type="file" accept="image/*" required class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button type="button" onclick="backToCategories()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="submit" class="submit-btn text-white py-3 px-6 rounded-lg font-semibold">
+                                    Submit Event <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Food & Beverage Form (Hidden by default) -->
+                    <div id="foodForm" class="hidden space-y-6">
+                        <form action="storefood.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            <input type="hidden" name="main_category" value="Food & Beverage">
+                            <div>
+                                <label for="food_name" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                                <input type="text" id="food_name" name="name" placeholder="International Food Festival 2025" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="food_category" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category</label>
+                                <select id="food_category" name="category" required 
+                                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                    <option value="" disabled selected>Select a sub-category</option>
+                                    <option value="Food Festival">Food Festival</option>
+                                    <option value="Tasting">Tasting</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Expo">Expo</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Same other fields as tech form -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="food_date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                    <input type="date" id="food_date" name="date" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                                
+                                <div>
+                                    <label for="food_place" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <input type="text" id="food_place" name="place" placeholder="Paris, France" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="food_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="food_description" name="description" maxlength="150" 
+                                          placeholder="Brief description (10-20 words)" required 
+                                          class="input-field w-full px-4 py-3 rounded-lg focus:outline-none h-24"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Max 150 characters</p>
+                            </div>
+                            
+                            <div>
+                                <label for="food_link" class="block text-sm font-medium text-gray-700 mb-1">Official Link</label>
+                                <input type="url" id="food_link" name="link" placeholder="https://example.com" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="food_image" class="block text-sm font-medium text-gray-700 mb-1">Event Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="food_image" class="flex flex-col w-full h-32 border-2 border-dashed hover:border-gray-400 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-300">
+                                        <div class="flex flex-col items-center justify-center pt-7">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+                                        </div>
+                                        <input id="food_image" name="image" type="file" accept="image/*" required class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button type="button" onclick="backToCategories()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="submit" class="submit-btn text-white py-3 px-6 rounded-lg font-semibold">
+                                    Submit Event <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Health & Wellness Form (Hidden by default) -->
+                    <div id="healthForm" class="hidden space-y-6">
+                        <form action="storehealth.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            <input type="hidden" name="main_category" value="Health & Wellness">
+                            <div>
+                                <label for="health_name" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                                <input type="text" id="health_name" name="name" placeholder="Global Wellness Conference 2025" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="health_category" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category</label>
+                                <select id="health_category" name="category" required 
+                                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                    <option value="" disabled selected>Select a sub-category</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Retreat">Retreat</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Webinar">Webinar</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Same other fields as tech form -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="health_date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                    <input type="date" id="health_date" name="date" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                                
+                                <div>
+                                    <label for="health_place" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <input type="text" id="health_place" name="place" placeholder="Bali, Indonesia" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="health_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="health_description" name="description" maxlength="150" 
+                                          placeholder="Brief description (10-20 words)" required 
+                                          class="input-field w-full px-4 py-3 rounded-lg focus:outline-none h-24"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Max 150 characters</p>
+                            </div>
+                            
+                            <div>
+                                <label for="health_link" class="block text-sm font-medium text-gray-700 mb-1">Official Link</label>
+                                <input type="url" id="health_link" name="link" placeholder="https://example.com" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="health_image" class="block text-sm font-medium text-gray-700 mb-1">Event Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="health_image" class="flex flex-col w-full h-32 border-2 border-dashed hover:border-gray-400 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-300">
+                                        <div class="flex flex-col items-center justify-center pt-7">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+                                        </div>
+                                        <input id="health_image" name="image" type="file" accept="image/*" required class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button type="button" onclick="backToCategories()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="submit" class="submit-btn text-white py-3 px-6 rounded-lg font-semibold">
+                                    Submit Event <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Finance & FinTech Form (Hidden by default) -->
+                    <div id="financeForm" class="hidden space-y-6">
+                        <form action="storefinance.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            <input type="hidden" name="main_category" value="Finance & FinTech">
+                            <div>
+                                <label for="finance_name" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                                <input type="text" id="finance_name" name="name" placeholder="FinTech Summit 2025" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="finance_category" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category</label>
+                                <select id="finance_category" name="category" required 
+                                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                    <option value="" disabled selected>Select a sub-category</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Summit">Summit</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Expo">Expo</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Same other fields as tech form -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="finance_date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                    <input type="date" id="finance_date" name="date" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                                
+                                <div>
+                                    <label for="finance_place" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <input type="text" id="finance_place" name="place" placeholder="London, UK" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="finance_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="finance_description" name="description" maxlength="150" 
+                                          placeholder="Brief description (10-20 words)" required 
+                                          class="input-field w-full px-4 py-3 rounded-lg focus:outline-none h-24"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Max 150 characters</p>
+                            </div>
+                            
+                            <div>
+                                <label for="finance_link" class="block text-sm font-medium text-gray-700 mb-1">Official Link</label>
+                                <input type="url" id="finance_link" name="link" placeholder="https://example.com" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="finance_image" class="block text-sm font-medium text-gray-700 mb-1">Event Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="finance_image" class="flex flex-col w-full h-32 border-2 border-dashed hover:border-gray-400 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-300">
+                                        <div class="flex flex-col items-center justify-center pt-7">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+                                        </div>
+                                        <input id="finance_image" name="image" type="file" accept="image/*" required class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button type="button" onclick="backToCategories()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="submit" class="submit-btn text-white py-3 px-6 rounded-lg font-semibold">
+                                    Submit Event <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Social Impact Form (Hidden by default) -->
+                    <div id="socialForm" class="hidden space-y-6">
+                        <form action="storesocial.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            <input type="hidden" name="main_category" value="Social Impact">
+                            <div>
+                                <label for="social_name" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                                <input type="text" id="social_name" name="name" placeholder="Global Volunteer Summit 2025" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="social_category" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category</label>
+                                <select id="social_category" name="category" required 
+                                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                    <option value="" disabled selected>Select a sub-category</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Volunteer">Volunteer</option>
+                                    <option value="Fundraiser">Fundraiser</option>
+                                    <option value="Awareness">Awareness</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Same other fields as tech form -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="social_date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                    <input type="date" id="social_date" name="date" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                                
+                                <div>
+                                    <label for="social_place" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <input type="text" id="social_place" name="place" placeholder="Nairobi, Kenya" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="social_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="social_description" name="description" maxlength="150" 
+                                          placeholder="Brief description (10-20 words)" required 
+                                          class="input-field w-full px-4 py-3 rounded-lg focus:outline-none h-24"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Max 150 characters</p>
+                            </div>
+                            
+                            <div>
+                                <label for="social_link" class="block text-sm font-medium text-gray-700 mb-1">Official Link</label>
+                                <input type="url" id="social_link" name="link" placeholder="https://example.com" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="social_image" class="block text-sm font-medium text-gray-700 mb-1">Event Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="social_image" class="flex flex-col w-full h-32 border-2 border-dashed hover:border-gray-400 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-300">
+                                        <div class="flex flex-col items-center justify-center pt-7">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+                                        </div>
+                                        <input id="social_image" name="image" type="file" accept="image/*" required class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button type="button" onclick="backToCategories()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="submit" class="submit-btn text-white py-3 px-6 rounded-lg font-semibold">
+                                    Submit Event <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- E-commerce & Retail Form (Hidden by default) -->
+                    <div id="ecomForm" class="hidden space-y-6">
+                        <form action="storeecom.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            <input type="hidden" name="main_category" value="E-commerce & Retail">
+                            <div>
+                                <label for="ecom_name" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                                <input type="text" id="ecom_name" name="name" placeholder="E-commerce Expo 2025" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="ecom_category" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category</label>
+                                <select id="ecom_category" name="category" required 
+                                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                    <option value="" disabled selected>Select a sub-category</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Summit">Summit</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Expo">Expo</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Same other fields as tech form -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="ecom_date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                    <input type="date" id="ecom_date" name="date" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                                
+                                <div>
+                                    <label for="ecom_place" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <input type="text" id="ecom_place" name="place" placeholder="Shanghai, China" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="ecom_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="ecom_description" name="description" maxlength="150" 
+                                          placeholder="Brief description (10-20 words)" required 
+                                          class="input-field w-full px-4 py-3 rounded-lg focus:outline-none h-24"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Max 150 characters</p>
+                            </div>
+                            
+                            <div>
+                                <label for="ecom_link" class="block text-sm font-medium text-gray-700 mb-1">Official Link</label>
+                                <input type="url" id="ecom_link" name="link" placeholder="https://example.com" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="ecom_image" class="block text-sm font-medium text-gray-700 mb-1">Event Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="ecom_image" class="flex flex-col w-full h-32 border-2 border-dashed hover:border-gray-400 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-300">
+                                        <div class="flex flex-col items-center justify-center pt-7">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+                                        </div>
+                                        <input id="ecom_image" name="image" type="file" accept="image/*" required class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button type="button" onclick="backToCategories()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="submit" class="submit-btn text-white py-3 px-6 rounded-lg font-semibold">
+                                    Submit Event <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Entertainment & Media Form (Hidden by default) -->
+                    <div id="mediaForm" class="hidden space-y-6">
+                        <form action="storemedia.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+                            <input type="hidden" name="main_category" value="Entertainment & Media">
+                            <div>
+                                <label for="media_name" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                                <input type="text" id="media_name" name="name" placeholder="International Film Festival 2025" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="media_category" class="block text-sm font-medium text-gray-700 mb-1">Sub-Category</label>
+                                <select id="media_category" name="category" required 
+                                        class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                    <option value="" disabled selected>Select a sub-category</option>
+                                    <option value="Concert">Concert</option>
+                                    <option value="Festival">Festival</option>
+                                    <option value="Exhibition">Exhibition</option>
+                                    <option value="Conference">Conference</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Same other fields as tech form -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="media_date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                    <input type="date" id="media_date" name="date" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                                
+                                <div>
+                                    <label for="media_place" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <input type="text" id="media_place" name="place" placeholder="Los Angeles, CA" required 
+                                           class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="media_description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                <textarea id="media_description" name="description" maxlength="150" 
+                                          placeholder="Brief description (10-20 words)" required 
+                                          class="input-field w-full px-4 py-3 rounded-lg focus:outline-none h-24"></textarea>
+                                <p class="text-xs text-gray-500 mt-1">Max 150 characters</p>
+                            </div>
+                            
+                            <div>
+                                <label for="media_link" class="block text-sm font-medium text-gray-700 mb-1">Official Link</label>
+                                <input type="url" id="media_link" name="link" placeholder="https://example.com" required 
+                                       class="input-field w-full px-4 py-3 rounded-lg focus:outline-none">
+                            </div>
+                            
+                            <div>
+                                <label for="media_image" class="block text-sm font-medium text-gray-700 mb-1">Event Image</label>
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="media_image" class="flex flex-col w-full h-32 border-2 border-dashed hover:border-gray-400 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-300">
+                                        <div class="flex flex-col items-center justify-center pt-7">
+                                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                            <p class="text-xs text-gray-400 mt-1">PNG, JPG up to 2MB</p>
+                                        </div>
+                                        <input id="media_image" name="image" type="file" accept="image/*" required class="hidden" />
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between">
+                                <button type="button" onclick="backToCategories()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-medium transition duration-300">
+                                    <i class="fas fa-arrow-left mr-2"></i> Back
+                                </button>
+                                <button type="submit" class="submit-btn text-white py-3 px-6 rounded-lg font-semibold">
+                                    Submit Event <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#121823] text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2025 ReadyUp. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white text-sm transition duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-sm transition duration-300">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-sm transition duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Category selection
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected class from all cards
+                    categoryCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+                    
+                    // Hide all forms
+                    document.querySelectorAll('[id$="Form"]').forEach(form => {
+                        form.classList.add('hidden');
+                    });
+                    
+                    // Show the selected form
+                    const category = this.getAttribute('data-category');
+                    document.getElementById(`${category}Form`).classList.remove('hidden');
+                    
+                    // Scroll to the form
+                    document.getElementById(`${category}Form`).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // File upload display for all forms
+            document.querySelectorAll('input[type="file"]').forEach(fileInput => {
+                fileInput.addEventListener('change', function(e) {
+                    const fileName = e.target.files[0]?.name || 'No file selected';
+                    const uploadArea = this.previousElementSibling;
+                    if (uploadArea) {
+                        uploadArea.innerHTML = `
+                            <div class="flex flex-col items-center justify-center pt-7">
+                                <i class="fas fa-check-circle text-3xl text-green-400 mb-2"></i>
+                                <p class="text-sm text-gray-700 truncate w-full px-2">${fileName}</p>
+                            </div>
+                        `;
+                    }
+                });
+            });
+        });
+        
+        function backToCategories() {
+            // Hide all forms
+            document.querySelectorAll('[id$="Form"]').forEach(form => {
+                form.classList.add('hidden');
+            });
+            
+            // Remove selected class from all cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Scroll to category selection
+            document.getElementById('categorySelection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

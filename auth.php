@@ -320,7 +320,7 @@ function renderLogin() {
                 color: transparent;
             }
             .auth-section {
-                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
@@ -359,7 +359,7 @@ function renderLogin() {
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center">
                     <a href="index.php" class="flex items-center">
-                        <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                        <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                         <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                     </a>
                 </div>
@@ -484,7 +484,7 @@ function renderSignup() {
                 color: transparent;
             }
             .auth-section {
-                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
@@ -523,7 +523,7 @@ function renderSignup() {
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center">
                     <a href="index.php" class="flex items-center">
-                        <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                        <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                         <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                     </a>
                 </div>
@@ -661,7 +661,7 @@ function renderVerifyOTP() {
                 color: transparent;
             }
             .auth-section {
-                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
@@ -697,7 +697,7 @@ function renderVerifyOTP() {
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center">
                     <a href="index.php" class="flex items-center">
-                        <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                        <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                         <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                     </a>
                 </div>
@@ -808,7 +808,7 @@ function renderForgotPassword() {
                 color: transparent;
             }
             .auth-section {
-                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
@@ -844,7 +844,7 @@ function renderForgotPassword() {
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <a href="index.php" class="flex items-center">
-                    <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                    <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
                 <nav class="hidden md:block">
@@ -945,7 +945,7 @@ function renderResetCode() {
                 color: transparent;
             }
             .auth-section {
-                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
@@ -981,7 +981,7 @@ function renderResetCode() {
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <a href="index.php" class="flex items-center">
-                    <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                    <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
                 <nav class="hidden md:block">
@@ -1086,7 +1086,7 @@ function renderNewPassword() {
                 color: transparent;
             }
             .auth-section {
-                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
@@ -1122,7 +1122,7 @@ function renderNewPassword() {
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <a href="index.php" class="flex items-center">
-                    <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                    <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
                 <nav class="hidden md:block">
@@ -1232,7 +1232,7 @@ function renderPasswordChanged() {
                 color: transparent;
             }
             .auth-section {
-                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+                background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
@@ -1254,7 +1254,7 @@ function renderPasswordChanged() {
         <header class="bg-[#121823] sticky top-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <a href="index.php" class="flex items-center">
-                    <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                    <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
                 <nav class="hidden md:block">

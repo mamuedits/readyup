@@ -14,7 +14,7 @@
             color: transparent;
         }
         .hero-section {
-            background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+            background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -43,7 +43,7 @@
         <div class="container mx-auto container-padding py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <a href="index.php" class="flex items-center">
-                    <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                    <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
             </div>
@@ -66,7 +66,7 @@
                     <input type="text" placeholder="   Search..." 
                         class="w-11 group-hover:w-64 transition-all duration-300 ease-in-out px-4 py-2 rounded-full border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500469 bg-gray-700 text-[#F5F7FA] focus:w-64">
                     <button class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 text-[#F5F7FA] group-hover:text-[#F5F7FA]">
-                        <img src="search.png" alt="s" class="mx-0.5 w-full h-full">
+                        <img src="images/search.png" alt="s" class="mx-0.5 w-full h-full">
                     </button>
                 </div>
                 <button class="md:hidden text-white text-2xl" id="mobileMenuButton">
@@ -123,7 +123,7 @@
                 <!-- Card 1 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
                     <div class="h-48 overflow-hidden">
-                        <img src="tech.jpg" alt="Tech & Innovation" class="w-full h-full object-cover">
+                        <img src="images/tech.jpg" alt="Tech & Innovation" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Tech & Innovation</h3>
@@ -138,7 +138,7 @@
                 <!-- Card 2 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
                     <div class="h-48 overflow-hidden">
-                        <img src="envi.jpg" alt="Environment" class="w-full h-full object-cover">
+                        <img src="images/envi.jpg" alt="Environment" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Sustainability</h3>
@@ -153,7 +153,7 @@
                 <!-- Card 3 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
                     <div class="h-48 overflow-hidden">
-                        <img src="food.jpg" alt="Food & Beverage" class="w-full h-full object-cover">
+                        <img src="images/food.jpg" alt="Food & Beverage" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Food & Beverage</h3>
@@ -168,7 +168,7 @@
                 <!-- Card 4 -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2">
                     <div class="h-48 overflow-hidden">
-                        <img src="health.jpeg" alt="Health & Wellness" class="w-full h-full object-cover">
+                        <img src="images/health.jpeg" alt="Health & Wellness" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Health & Wellness</h3>
@@ -183,7 +183,7 @@
                 <!-- Additional Cards (hidden by default) -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hidden-sectors">
                     <div class="h-48 overflow-hidden">
-                        <img src="finance.jpg" alt="Finance & FinTech" class="w-full h-full object-cover">
+                        <img src="images/finance.jpg" alt="Finance & FinTech" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Finance & FinTech</h3>
@@ -197,7 +197,7 @@
 
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hidden-sectors">
                     <div class="h-48 overflow-hidden">
-                        <img src="social.jpg" alt="Social Impact" class="w-full h-full object-cover">
+                        <img src="images/social.jpg" alt="Social Impact" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Social Impact</h3>
@@ -211,7 +211,7 @@
 
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hidden-sectors">
                     <div class="h-48 overflow-hidden">
-                        <img src="e-com.png" alt="E-commerce" class="w-full h-full object-cover">
+                        <img src="images/e-com.png" alt="E-commerce" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">E-commerce & Retail</h3>
@@ -225,7 +225,7 @@
 
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hidden-sectors">
                     <div class="h-48 overflow-hidden">
-                        <img src="media.png" alt="Entertainment" class="w-full h-full object-cover">
+                        <img src="images/media.png" alt="Entertainment" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Entertainment & Media</h3>
@@ -336,7 +336,7 @@
                 <!-- Company Info -->
                 <div>
                     <div class="flex items-center mb-4">
-                        <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                        <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                         <span class="text-2xl font-bold ml-2">Ready<span class="gradient-text">Up</span></span>
                     </div>
                     <p class="text-gray-400 mb-4">

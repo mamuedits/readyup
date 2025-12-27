@@ -15,7 +15,7 @@
             color: transparent;
         }
         .hero-section {
-            background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('back2.png');
+            background: linear-gradient(rgba(18, 24, 35, 0.85), rgba(18, 24, 35, 0.85)), url('images/back2.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -95,7 +95,7 @@
         <div class="container mx-auto container-padding py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <a href="index1.php" class="flex items-center">
-                    <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                    <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-white ml-2">Ready<span class="gradient-text">Up</span></span>
                 </a>
             </div>
@@ -118,7 +118,7 @@
                     <input type="text" placeholder="   Search..." 
                         class="w-11 group-hover:w-64 transition-all duration-300 ease-in-out px-4 py-2 rounded-full border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500469 bg-gray-700 text-[#F5F7FA] focus:w-64">
                     <button class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 text-[#F5F7FA] group-hover:text-[#F5F7FA]">
-                        <img src="search.png" alt="s" class="mx-0.5 w-full h-full">
+                        <img src="images/search.png" alt="s" class="mx-0.5 w-full h-full">
                     </button>
                 </div>
                 <button class="md:hidden text-white text-2xl" id="mobileMenuButton">
@@ -285,7 +285,7 @@
                 <!-- Company Info -->
                 <div>
                     <div class="flex items-center mb-4">
-                        <img src="Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
+                        <img src="images/Readyup.png" alt="ReadyUp Logo" class="h-10 w-10">
                         <span class="text-2xl font-bold ml-2">Ready<span class="gradient-text">Up</span></span>
                     </div>
                     <p class="text-gray-400 mb-4">
